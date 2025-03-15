@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama Demo Application</title>
+    <script>
+        // Check if we're on the IDE server (port 63342)
+        if (window.location.port === '63342') {
+            // Redirect to the correct application URL
+            window.location.href = 'http://localhost:8085/';
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .api-info {
+            background-color: #e9f7ef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .server-info {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Ollama Demo Application</h1>
+    
+    <div class="container">
+        <h2>About This Application</h2>
+        <p>
+            This is a simple Spring Boot application that demonstrates how to integrate with Ollama, 
+            an open-source platform for running large language models locally.
+        </p>
+        <p>
+            The application provides REST API endpoints to interact with Ollama models and generate text responses.
+        </p>
+        
+        <h2>Try It Out</h2>
+        <p>
+            You can test the Ollama integration using our interactive test page:
+        </p>
+        <a href="test.html" class="btn">Go to Test Page</a>
+        
+        <div class="api-info">
+            <h3>Available API Endpoints:</h3>
+            <ul>
+                <li><code>POST /api/simple</code> - Simple API using Java's HttpClient</li>
+                <li><code>POST /api/direct</code> - Direct API using HttpURLConnection</li>
+            </ul>
+            <p>
+                Both endpoints accept a JSON payload with a <code>message</code> field and return a response from the Ollama model.
+            </p>
+            <p>
+                Example request:
+            </p>
+            <pre><code>{
+  "message": "Tell me a joke"
+}</code></pre>
+        </div>
+        
+        <div class="server-info">
+            <h3>Server Information</h3>
+            <p>This application is running on: <strong>http://localhost:8085</strong></p>
+            <p>If you're seeing this page through your IDE's preview (port 63342), you should be automatically redirected to the correct URL.</p>
+        </div>
+    </div>
+</body>
+</html> 

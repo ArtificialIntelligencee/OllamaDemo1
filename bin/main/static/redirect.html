@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        // Get the current hostname and port from the URL
+        const currentUrl = window.location.href;
+        const urlObj = new URL(currentUrl);
+        
+        // Check if we're on the IDE server (port 63342)
+        if (urlObj.port === '63342') {
+            // Extract the path components
+            const pathParts = urlObj.pathname.split('/');
+            const lastPart = pathParts[pathParts.length - 1];
+            
+            // Redirect to the correct application URL
+            window.location.href = 'http://localhost:8085/' + lastPart;
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .message {
+            margin-bottom: 20px;
+        }
+        .link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Redirecting to Application</h1>
+    <div class="message">
+        <p>If you are not redirected automatically, please click the link below:</p>
+    </div>
+    <a href="http://localhost:8085/" class="link">Go to Application</a>
+</body>
+</html> 

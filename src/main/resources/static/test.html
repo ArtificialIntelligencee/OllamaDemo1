@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama API Test</title>
+    <script>
+        // Check if we're on the IDE server (port 63342)
+        if (window.location.port === '63342') {
+            // Redirect to the correct application URL
+            window.location.href = 'http://localhost:8085/test.html';
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 80px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #response {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            min-height: 100px;
+        }
+        .endpoint-selector {
+            margin-bottom: 15px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-link">← Back to Home</a>
+    <h1>Ollama API Test</h1>
+    
+    <div class="container">
+        <h2>Send a message to Ollama</h2>
+        
+        <div class="endpoint-selector">
+            <label for="endpoint">Endpoint:</label>
+            <select id="endpoint">
+                <option value="/api/simple">Simple API</option>
+                <option value="/api/direct" selected>Direct API</option>
+            </select>
+        </div>
+        
+        <textarea id="message" placeholder="Type your message here...">Tell me a joke</textarea>
+        <button id="sendButton">Send</button>
+        <div id="response"></div>
+    </div>
+    
+    <script>
+        document.getElementById('sendButton').addEventListener('click', async () => {
+            const message = document.getElementById('message').value;
+            const endpoint = document.getElementById('endpoint').value;
+            const responseElement = document.getElementById('response');
+            
+            responseElement.textContent = 'Loading...';
+            
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                responseElement.textContent = data.response;
+            } catch (error) {
+                responseElement.textContent = `Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html> 
