@@ -1,10 +1,10 @@
 # Ollama Gemma3 Spring Boot Integration
 
-This project demonstrates how to integrate Ollama with Gemma3 (1B parameter model) into a Spring Boot application using Spring AI.
+This project demonstrates how to integrate Ollama with Gemma3 (1B parameter model) into a Spring Boot application.
 
 ## Prerequisites
 
-- Java 23 or later
+- Java 17 or later
 - Gradle
 - Ollama installed locally
 - Gemma3 model pulled in Ollama
@@ -34,17 +34,17 @@ This project demonstrates how to integrate Ollama with Gemma3 (1B parameter mode
    ```
 4. Open your browser and navigate to:
    ```
-   http://localhost:8080
+   http://localhost:8085
    ```
 
 ## API Endpoints
 
 The application provides the following REST endpoints:
 
-### Simple Chat
+### Simple API (using Java's HttpClient)
 
 ```
-POST /api/ollama/simple
+POST /api/simple
 ```
 Request body:
 ```json
@@ -53,10 +53,10 @@ Request body:
 }
 ```
 
-### Chat with System Prompt
+### Direct API (using HttpURLConnection)
 
 ```
-POST /api/ollama/system-prompt?systemPrompt=Your system prompt here
+POST /api/direct
 ```
 Request body:
 ```json
@@ -65,17 +65,14 @@ Request body:
 }
 ```
 
-### Chat with Template
+## Web Interface
 
-```
-POST /api/ollama/template?topic=Your topic here
-```
-Request body:
-```json
-{
-  "message": "Your message here"
-}
-```
+The application includes a simple web interface:
+
+- Home page: `http://localhost:8085/`
+- Test page: `http://localhost:8085/test.html`
+
+The test page provides an interactive interface to try out the API endpoints.
 
 ## Configuration
 
@@ -83,6 +80,8 @@ The application is configured to use Ollama with Gemma3 model. You can modify th
 
 ```yaml
 spring:
+  application:
+    name: OllamaDemo1
   ai:
     ollama:
       base-url: http://localhost:11434
@@ -95,11 +94,18 @@ spring:
       embedding:
         options:
           model: gemma3
+
+server:
+  port: 8085
+
+ollama:
+  api-url: http://localhost:11434
+  model: gemma3
 ```
 
 ## Technologies Used
 
 - Spring Boot 3.4.3
-- Spring AI (Spring AI Ollama Spring Boot Starter)
 - Ollama
 - Gemma3 (1B parameter model)
+- HTML/CSS/JavaScript for the web interface
